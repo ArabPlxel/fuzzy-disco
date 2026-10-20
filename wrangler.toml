@@ -1,0 +1,20 @@
+name = "homebrew-store-repo"
+compatibility_date = "2026-03-18"
+compatibility_flags = [ "nodejs_compat" ]
+main = "src/index.ts"
+minify = true
+
+[placement]
+mode = "smart"
+
+# Serves store.db and the images folder straight from this repo.
+[assets]
+directory = "./assets"
+binding = "ASSETS"
+run_worker_first = true
+
+[vars]
+# IMPORTANT: replace this with your own worker domain
+# (e.g. "homebrew-store-repo.yourname.workers.dev") after the first deploy.
+# The same value is used inside assets/store.db for the icon URLs.
+BASELINK = "https://homebrew-store-repo.ohdhafhu312.workers.dev"

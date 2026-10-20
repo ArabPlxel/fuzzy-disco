@@ -1,0 +1,57 @@
+# The Homebrew-Store-Repo [![codeQL](https://github.com/Repressoh/Homebrew-Store-Repo/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Repressoh/Homebrew-Store-Repo)
+Create your Own Homebrew Store Content Delivery Network easily and for free. 
+
+# ⚠️ Configure before deploying
+
+This repo ships with two GTA V entries and a placeholder domain `YOUR_DOMAIN`. Before your first deploy:
+
+1. Add the `CLOUDFLARE_API_TOKEN` secret to your GitHub repo (Settings → Secrets → Actions) so the Deploy workflow can publish the Worker.
+2. After the first deploy, note your Worker URL (e.g. `homebrew-store-repo.yourname.workers.dev`).
+3. Replace `YOUR_DOMAIN` with that URL in **two** places:
+   - `wrangler.toml` → the `BASELINK` variable
+   - `assets/store.db` → the 4 image URLs (open it with [DB Browser for SQLite](https://sqlitebrowser.org/dl/), table `homebrews`)
+4. Push again — done. Put `https://your-worker-url/store.db` into the Homebrew Store on your PS4.
+
+# Why?
+
+I created this tool after I decided to host my own repository for the Homebrew Store and I only found a desktop app for that. I wanted something more scalable instead.
+
+This was a good opportunity to learn more about the PS4 file system and provide a useful tool for everybody.
+
+# How do I use this?
+
+It's pretty easy!
+
+- First of all, fork the repository
+
+- Open the actions tab and click "I understand my workflows, go ahead and enable them"
+
+- Go in your new Repository settings and in "Pages", put your custom domain ( or leave the free one )
+
+- Clone your repository in your local environment
+
+- Edit, in the wrangler.toml file, the "BASELINK" variable to the domain you just configured
+
+- Install the dependencies
+
+```bash
+npm install
+```
+
+- Edit the store.db file ( I suggest using the [sqlitebrowser tool](https://sqlitebrowser.org/dl/) )
+
+- Deploy to cloudflare Workers
+
+```bash
+npm run deploy
+```
+
+✅ Done! Wrangler will tell you the link you will have to insert in the Homebrew Store
+
+Remember that you still have to host your .pkg file. If it's under 2gb, you can store it on GitHub
+
+Tip: Cloudflare has a service called Cloudflare R2 that allows you to store up to 5gb for free!
+
+# Disclaimer
+
+Use this at your own risk. I **DO NOT** promote any type of piracy, in fact this repository **DOES NOT** contain any paid game whatsoever. What you do with this is your responsibility and I cannot be held accountable for anything you do with my project in any way.
